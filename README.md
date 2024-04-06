@@ -61,3 +61,7 @@ mkfs.xfs -L data1 /dev/data-drive1
 mkfs.xfs -L data2 /dev/data-drive2
 ```
 
+As a last resort:
+```bash
+wipefs -a $DISK
+```
