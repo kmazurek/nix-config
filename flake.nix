@@ -16,7 +16,12 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-darwin, home-manager, nix-darwin, ... }@inputs:
+  outputs = { self,
+              nixpkgs,
+              nixpkgs-darwin,
+              nix-darwin,
+              home-manager,
+              ... }@inputs:
     let
       # TODO not sure why we need this?
       inherit (self) outputs;
