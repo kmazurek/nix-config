@@ -42,10 +42,10 @@ echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
 
 All of the below must be run with root permissions.
 
-Partition and mount the drives using [disko](https://github.com/nix-community/disko)
+Partition and mount the main drive using [disko](https://github.com/nix-community/disko)
 ```bash
 DISK='/dev/disk/by-id/nvme-CT1000P3SSD8_235245DA7E95'
-curl https://raw.githubusercontent.com/kmazurek/nix-config/main/disko/ramno/default.nix -o /tmp/disko.nix
+curl https://raw.githubusercontent.com/kmazurek/nix-config/main/disko/btrfs-root/default.nix -o /tmp/disko.nix
 sed -i "s|replace-during-installation|$DISK|" /tmp/disko.nix
 nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko /tmp/disko.nix
 ```
