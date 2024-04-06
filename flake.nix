@@ -16,12 +16,14 @@
     };
   };
 
-  outputs = { self,
-              nixpkgs,
-              nixpkgs-darwin,
-              nix-darwin,
-              home-manager,
-              ... }@inputs:
+  outputs =
+    { self
+    , nixpkgs
+    , nixpkgs-darwin
+    , nix-darwin
+    , home-manager
+    , ...
+    }@inputs:
     let
       # TODO not sure why we need this?
       inherit (self) outputs;
@@ -41,8 +43,8 @@
       # Formatter for your nix files, available through 'nix fmt'
       # Other options beside 'alejandra' include 'nixpkgs-fmt'
       formatter = {
-        x86_64-linux = linuxPackages.alejandra;
-        aarch64-darwin = darwinPackages.alejandra;
+        x86_64-linux = linuxPackages.nixpkgs-fmt;
+        aarch64-darwin = darwinPackages.nixpkgs-fmt;
       };
 
       # Your custom packages and modifications, exported as overlays
@@ -61,10 +63,9 @@
       };
 
       nixosConfigurations = {
-        malloc = nixpkgs.lib.nixosSystem {
-          # system = "x86_64-linux";
+        "ramno" = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs; };
-          modules = [ ./machines/nixos/malloc ];
+          modules = [ ./hosts/nixos/ramno ];
         };
       };
 
