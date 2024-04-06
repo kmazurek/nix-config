@@ -1,38 +1,32 @@
-{ lib, pkgs, ... }:
-let
-  username = "kuba";
-in
-{
+{ lib, pkgs, user-config, ... }: {
   programs.home-manager.enable = true;
 
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-  };
-
-  nix.settings.trusted-users = [ ${username} ];
+  nix.settings.trusted-users = [ user-config.username ];
 
   home = {
-    username = ${username};
-    homeDirectory = "/home/${username}";
+    username = user-config.username;
+    homeDirectory = lib.mkForce user-config.homeDirectory;
     stateVersion = "23.11";
+    packages = with pkgs; [
+      httpie
+    ];
   };
 
   # users = {
   #   users = {
-  #     kuba = {
+  #     ${user-config.username} = {
   #       shell = pkgs.zsh;
   #       uid = 1000;
   #       isNormalUser = true;
-  #       group = "kuba";
+  #       group = user-config.username;
   #     };
   #   };
   #   groups = {
-  #     kuba = {
+  #     ${user-config.username} = {
   #       gid = 1000;
   #     };
   #   };
   # };
-
-  # programs.zsh.enable = true;
+  #
+  programs.zsh.enable = true;
 }

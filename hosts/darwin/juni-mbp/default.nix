@@ -35,15 +35,13 @@
   #   ];
   # };
 
-  juni-mbp = {
-    system = "aarch64-darwin";
+  # system = "aarch64-darwin";
 
-    modules = [
-      # collect all the necessary modules
-      home-manager.darwinModules.home-manager
-      ./home/darwin
-    ];
-  };
+  modules = [
+    # collect all the necessary modules
+    inputs.home-manager.darwinModules.home-manager
+    ./home/darwin
+  ];
 
   environment.systemPackages = with pkgs; [
     bat

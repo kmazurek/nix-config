@@ -1,7 +1,6 @@
 { pkgs, ... }:
 
 {
-  nix.settings.trusted-users = [ "kuba" ];
   # enable flakes globally
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 

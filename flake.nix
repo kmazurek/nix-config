@@ -22,6 +22,8 @@
       inherit (self) outputs;
       linuxPackages = nixpkgs.legacyPackages."x86_64-linux";
       darwinPackages = nixpkgs-darwin.legacyPackages."aarch64-darwin";
+
+      darwinProfiles = import ./profiles/darwin/profiles.nix { inherit inputs outputs; };
     in
     {
       # Defines available packages for each architecture+OS
@@ -41,12 +43,16 @@
       # Your custom packages and modifications, exported as overlays
       overlays = import ./overlays { inherit inputs; };
 
+      # darwinConfigurations = {
+      #   juni-mbp = nix-darwin.lib.darwinSystem {
+      #     # system = "aarch64-darwin";
+      #     specialArgs = { inherit inputs outputs; };
+      #     modules = [ ./hosts/darwin/juni-mbp ];
+      #   };
+      # };
+
       darwinConfigurations = {
-        juni-mbp = nix-darwin.lib.darwinSystem {
-          # system = "aarch64-darwin";
-          specialArgs = { inherit inputs outputs; };
-          modules = [ ./hosts/darwin/juni-mbp ];
-        };
+        "juni-mbp" = nix-darwin.lib.darwinSystem darwinProfiles.juni-mbp;
       };
 
       nixosConfigurations = {
