@@ -1,23 +1,13 @@
 { inputs, config, lib, vars, pkgs, ... }:
 {
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.kernelParams = [ "pcie_aspm=force" "consoleblank=60" ];
-  boot.extraModulePackages = [ ];
-
-  hardware.cpu.intel.updateMicrocode = true;
-  hardware.enableRedistributableFirmware = true;
-  hardware.opengl.enable = true;
-  hardware.opengl.driSupport = true;
+  imports = [
+    ./hardware-configuration.nix
+  ];
 
   networking = {
+    hostName = "ramno";
     useDHCP = true;
   };
-
-  imports = [
-    ./filesystems
-  ];
 
   systemd.services.hd-idle = {
     description = "HD spin down daemon";
@@ -29,6 +19,7 @@
   };
 
   system.autoUpgrade.enable = true;
+  system.StateVersion = "23.11";
 
   environment.systemPackages = with pkgs; [
     pciutils
@@ -49,7 +40,4 @@
     mergerfs
     mergerfs-tools
   ];
-
-  # This fixes the weird mergerfs permissions issue
-  boot.initrd.systemd.enable = true;
 }
