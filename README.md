@@ -61,3 +61,14 @@ mkfs.xfs -L data1 /dev/data-drive1
 mkfs.xfs -L data2 /dev/data-drive2
 ```
 
+```bash
+nixos-install \
+--root "/mnt" \
+--no-root-passwd \
+--flake "git+file:///mnt/etc/nixos#hostname" # ramno etc.
+```
+
+Applying updated configuration on NixOS
+```bash
+sudo nixos-rebuild switch --flake .#config-name
+```

@@ -19,7 +19,6 @@
   };
 
   system.autoUpgrade.enable = true;
-  system.StateVersion = "23.11";
 
   environment.systemPackages = with pkgs; [
     pciutils
@@ -40,4 +39,6 @@
     mergerfs
     mergerfs-tools
   ];
+
+  system.StateVersion = "23.11";
 }
