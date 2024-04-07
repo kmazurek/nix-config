@@ -101,6 +101,20 @@
             ./hosts/nixos/duch
           ];
         };
+
+        "duch-minimal" = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs outputs user-config; };
+          modules = [
+            ./users/kuba
+            ./users/root
+
+            ./modules/common
+            ./modules/nixos/server
+
+            ./hosts/nixos/duch-minimal
+          ];
+        };
       };
 
       deploy.nodes = {

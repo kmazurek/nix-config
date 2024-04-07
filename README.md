@@ -61,6 +61,17 @@ mkfs.xfs -L data1 /dev/data-drive1
 mkfs.xfs -L data2 /dev/data-drive2
 ```
 
+Install git temporarily
+```bash
+nix-shell -p git
+```
+
+Clone this repository
+```bash
+mkdir -p /mnt/etc/nixos
+git clone https://github.com/kmazurek/nix-config.git /mnt/etc/nixos
+```
+
 ```bash
 nixos-install \
 --root "/mnt" \
